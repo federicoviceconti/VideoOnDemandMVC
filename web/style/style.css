@@ -1,0 +1,168 @@
+@charset "ISO-8859-1";
+
+* {
+    border: 0 none;
+    outline: 0;
+    padding: 0;
+    margin: 0;
+}
+
+.header {
+	background-color: black;
+	position: relative;
+	height: 100px;
+	width: 100%;	
+}
+
+.clickable {
+	cursor: pointer;	
+}
+
+tr:hover {
+	background-color: #E8E8E8 !important;	
+}
+
+aside ul {
+	text-align: center;
+	padding-left: 16px !important;
+	padding-right: 16px !important;
+}
+
+aside ul li a {
+	color: white;
+	text-decoration: none;
+	font-family: 'Roboto', sans-serif;
+}
+
+aside ul li a:link {
+    color: white;
+}
+
+#home-img {
+	width: 100%;
+}
+
+aside {}
+
+aside ul li {
+	margin: 8px;
+	padding: 12px;
+	display: block;
+	cursor: pointer;
+	background-color: #4CAF50;
+	border-radius: 12px;
+	list-style-type: none;		
+}
+
+header {
+	padding: 0px;
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+header h1 {
+	font-family: 'Roboto', sans-serif;
+	color: white;
+}
+
+aside {
+	height: 100%;
+	width: 20%;
+	display: inline-block;
+	float: left;
+}
+
+.footer-link a {
+	padding: 8px;
+	bottom: 0px;
+	float:right;	
+}
+
+.content-all {
+	padding: 8px;
+}
+
+.content {
+	display: inline-block;
+	width: 80%;
+	heigth:80%;
+}
+
+.content p {
+	font-family: 'Roboto', sans-serif;
+}
+
+.text {
+	font-family: 'Roboto', sans-serif;
+}
+
+footer {
+	position: fixed;
+	left: 0;
+    bottom: 0;   
+    height: 10%; 
+	width: 100%;
+	background-color: black;
+}
+
+table {
+	width: 100%;
+}
+
+table th {
+	background-color: green;
+}
+
+table tr:nth-child(even){
+	background-color: #f2f2f2;
+}
+
+table tr:nth-child(odd){
+	background-color: #fafafa;
+}
+
+.part {
+	padding: 8px;
+}
+
+.large {
+	font-size: 22px;
+}
+
+.white {
+	color: white !important;
+}
+
+input[type=text], [type=password] {
+    width: 100%;
+    border: 1px solid gray !important;
+    padding: 12px 20px;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    width: 100%;
+    padding: 12px 20px;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.footer-container {
+	width: inherit;
+	height: 100%;
+	position: relative;
+}
+
+.footer-container p {
+	font-family: 'Roboto', sans-serif;
+	color: white;
+	position: absolute;
+    top: 25%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}

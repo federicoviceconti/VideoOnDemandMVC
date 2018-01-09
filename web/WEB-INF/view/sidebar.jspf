@@ -1,0 +1,22 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<c:choose>
+	<c:when test="${sessionScope['user'] != null}">
+		<aside>
+			<ul>
+				<li><a href="home.jsp">Home Page</a></li>
+				<li><a href="ListServlet">Mostra la lista prodotti</a></li>
+				<li><a href="AddServlet">Aggiungi un film</a></li>
+				<li><a href="LogoutServlet">Logout</a></li>
+			</ul>
+		</aside>
+	</c:when>
+	<c:otherwise>
+		<aside>
+			<ul>
+				<li><a href="home.jsp">Home</a></li>
+				<li><a href="login.jsp">Login</a></li>
+			</ul>
+		</aside>
+	</c:otherwise>
+</c:choose>

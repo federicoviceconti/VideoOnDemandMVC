@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+	<!-- 
+	This file is used for the application pool
+	Allow to handle pool automatically instead of create one by one
+	
+		name: resource to connect, jdbc is used before for convention
+		auth: app pool done by container
+		driverClassName: imported driver
+		type: type of dataSource 
+	-->
+	<Resource name="jdbc/videoondemand"
+		auth="Container"
+		driverClassName="com.mysql.jdbc.Driver"
+		type="javax.sql.DataSource"
+		username="root" password="root"
+		url="jdbc:mysql://localhost:3306/videoondemand" />
+</Context>
