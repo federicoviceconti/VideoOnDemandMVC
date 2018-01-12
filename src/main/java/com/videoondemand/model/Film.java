@@ -1,12 +1,17 @@
-package com.jpa;
+package com.videoondemand.model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "film", schema = "videoondemand", catalog = "")
-public class FilmEntity {
+@Table(name = "film", schema = "videoondemand")
+@NamedQueries({
+        @NamedQuery(name = "FilmEntity.findAll", query = "SELECT f FROM Film f"),
+        @NamedQuery(name = "FilmEntity.findAllOrderedBy", query = "SELECT f FROM Film f ORDER BY :order"),
+        @NamedQuery(name = "FilmEntity.deleteById", query = "DELETE FROM Film f where f.id=:id")
+})
+public class Film {
     private int id;
     private String titolo;
     private int anno;
@@ -17,6 +22,23 @@ public class FilmEntity {
     private Timestamp dataCreazione;
     private Timestamp ultimaModifica;
     private String filename;
+    private int idGenereFk;
+    private Genere idGenere;
+
+    public Film() {
+    }
+
+    public Film(int id, String titolo, int idGenere, int anno, Integer durata, String cast, String descrizione, String filename) {
+        this.id = id;
+        this.titolo = titolo;
+        this.anno = anno;
+        this.regista = regista;
+        this.idGenereFk = idGenere;
+        this.cast = cast;
+        this.durata = durata;
+        this.descrizione = descrizione;
+        this.filename = filename;
+    }
 
     @Id
     @Column(name = "id")
@@ -122,7 +144,7 @@ public class FilmEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        FilmEntity that = (FilmEntity) o;
+        Film that = (Film) o;
         return id == that.id &&
                 anno == that.anno &&
                 Objects.equals(titolo, that.titolo) &&
@@ -135,9 +157,27 @@ public class FilmEntity {
                 Objects.equals(filename, that.filename);
     }
 
+    public int getIdGenereFk() {
+        return idGenereFk;
+    }
+
+    public void setIdGenereFk(int idGenereFk) {
+        this.idGenereFk = idGenereFk;
+    }
+
     @Override
     public int hashCode() {
 
         return Objects.hash(id, titolo, anno, regista, cast, durata, descrizione, dataCreazione, ultimaModifica, filename);
+    }
+
+    @OneToOne
+    @JoinColumn(name = "id_genere", referencedColumnName = "id", nullable = false)
+    public Genere getIdGenere() {
+        return idGenere;
+    }
+
+    public void setIdGenere(Genere idGenere) {
+        this.idGenere = idGenere;
     }
 }

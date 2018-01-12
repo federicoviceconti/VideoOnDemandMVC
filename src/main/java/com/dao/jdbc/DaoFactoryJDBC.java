@@ -35,7 +35,7 @@ public class DaoFactoryJDBC extends DaoFactory {
 		return DaoUtenteImplJDBC.getInstance();
 	}
 	
-	public static DaoFactoryJDBC getInstace() {
+	public static synchronized DaoFactoryJDBC getInstace() {
 		return daoFactoryJDBC == null ? daoFactoryJDBC = new DaoFactoryJDBC() : daoFactoryJDBC;
 	}
 	

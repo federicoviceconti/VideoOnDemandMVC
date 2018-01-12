@@ -12,7 +12,7 @@ public class FacadeUserImpl implements FacadeUser {
 	 */
 	@Override
 	public UserDto login(String username, String password) {
-		DaoFactory daoFactory = DaoFactory.getDao(DaoType.JDBCCONNECTION);
+		DaoFactory daoFactory = DaoFactory.getDao(DaoType.JPA);
 		User user = daoFactory.getDaoUtente().login(username, password.toCharArray());
 		return user != null ? new UserDto.UserBuilder()
 				.setUsername(user.getUsername())
@@ -24,12 +24,8 @@ public class FacadeUserImpl implements FacadeUser {
 	 */
 	@Override
 	public boolean inserisciUtente(UserDto userDto) {
-		DaoFactory daoFactory = DaoFactory.getDao(DaoType.JDBCCONNECTION);
-		return daoFactory.getDaoUtente().inserisciUtente(new User.UserBuilder()
-				.setUsername(userDto.getUsername())
-				.setPassword(userDto.getPassword())
-				.build()
-		) > 0;	
+		DaoFactory daoFactory = DaoFactory.getDao(DaoType.JPA);
+		return daoFactory.getDaoUtente().inserisciUtente(FacadeUtils.trasformDtoIntoUser(userDto)) > 0;
 	}
 
 }

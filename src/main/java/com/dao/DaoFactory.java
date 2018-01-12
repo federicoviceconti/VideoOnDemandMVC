@@ -1,9 +1,10 @@
 package com.dao;
 
 import com.dao.jdbc.DaoFactoryJDBC;
+import com.dao.jpa.DaoFactoryJPA;
 
 public abstract class DaoFactory {
-	public enum DaoType { INMEMORY, JDBCCONNECTION }
+	public enum DaoType { INMEMORY, JDBCCONNECTION, JPA }
 	
 	public abstract DaoFilm getDaoFilm();
 	public abstract DaoGenere getDaoGenere();
@@ -15,6 +16,8 @@ public abstract class DaoFactory {
 /*
 				return DaoFactoryMemory.getInstace();
 */
+			case JPA:
+				return DaoFactoryJPA.getInstance();
 			case JDBCCONNECTION:
 				return DaoFactoryJDBC.getInstace();
 			default: 

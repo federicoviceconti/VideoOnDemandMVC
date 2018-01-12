@@ -21,7 +21,7 @@ public class FacadeFilmImpl implements FacadeFilm {
 	
 	@Override
 	public List<FilmGenereDto> returnFilmInformation(String order) {
-		DaoFactory daoFactory = DaoFactory.getDao(DaoType.JDBCCONNECTION);
+		DaoFactory daoFactory = DaoFactory.getDao(DaoType.JPA);
 		DaoFilm daoFilm = daoFactory.getDaoFilm();
 		DaoGenere daoGenere = daoFactory.getDaoGenere();
 		
@@ -30,17 +30,17 @@ public class FacadeFilmImpl implements FacadeFilm {
 		List<Film> films = daoFilm.getAllFilm(order);
 		
 		for(Film film: films) {
-			Genere genere = daoGenere.getGenereById(film.getIdGenere());
+			Genere genere = daoGenere.getGenereById(film.getIdGenere().getId());
 			results.add(new FilmGenereDto(
 					new FilmDto(
 							film.getId(),
-							film.getNome(), 
+							film.getTitolo(),
 							genere.getId(), genere.getNome(), 
 							film.getAnno(), 
 							film.getDurata(),
 							film.getCast(),
 							film.getDescrizione(),
-							getCompleteUri(film.getFileName()))
+							getCompleteUri(film.getFilename()))
 			));
 		}
 				
@@ -49,66 +49,48 @@ public class FacadeFilmImpl implements FacadeFilm {
 
 	@Override
 	public int returnSizeFilm() {
-		DaoFactory daoFactory = DaoFactory.getDao(DaoType.JDBCCONNECTION);
+		DaoFactory daoFactory = DaoFactory.getDao(DaoType.JPA);
 		return daoFactory.getDaoFilm().returnSize();
 	}
 
 	@Override
 	public boolean modifyFilm(int id, FilmGenereDto filmDto) {
-		DaoFactory daoFactory = DaoFactory.getDao(DaoType.JDBCCONNECTION);
+		DaoFactory daoFactory = DaoFactory.getDao(DaoType.JPA);
 		DaoFilm daoFilm = daoFactory.getDaoFilm();
-		daoFilm.modifyFilm(new Film(
-				filmDto.getFilm().getNome(),
-				filmDto.getFilm().getGenere().keySet().iterator().next(),
-				filmDto.getFilm().getAnno(),
-				filmDto.getFilm().getFileName()), id);
+		daoFilm.modifyFilm(FacadeUtils.trasformDtoIntoFilm(filmDto), id);
 		return false;
 	}
 
 	@Override
 	public boolean deleteFilm(int id) {
-		DaoFactory daoFactory = DaoFactory.getDao(DaoType.JDBCCONNECTION);
+		DaoFactory daoFactory = DaoFactory.getDao(DaoType.JPA);
 		DaoFilm daoFilm = daoFactory.getDaoFilm();
 		return daoFilm.deleteFilm(id);
 	}
 
 	@Override
 	public boolean addFilm(FilmGenereDto toAdd) {
-		DaoFactory daoFactory = DaoFactory.getDao(DaoType.JDBCCONNECTION);
+		DaoFactory daoFactory = DaoFactory.getDao(DaoType.JPA);
 		DaoFilm daoFilm = daoFactory.getDaoFilm();
-        return daoFilm.addFilm(
-        		new Film(
-        				toAdd.getFilm().getNome(), 
-        				toAdd.getFilm().getGenere().keySet().iterator().next(),
-        				toAdd.getFilm().getAnno(),
-        				toAdd.getFilm().getFileName())
-        );	
+
+        return daoFilm.addFilm(FacadeUtils.trasformDtoIntoFilm(toAdd));
 	}
 
 	@Override
 	public FilmGenereDto getFilmById(int id) {
-		DaoFactory daoFactory = DaoFactory.getDao(DaoType.JDBCCONNECTION);
+		DaoFactory daoFactory = DaoFactory.getDao(DaoType.JPA);
 		DaoFilm daoFilm = daoFactory.getDaoFilm();
 		DaoGenere daoGenere = daoFactory.getDaoGenere();
-				
+
 		Film film = daoFilm.getFilmById(id);
-		Genere genere = daoGenere.getGenereById(film.getIdGenere());
-		return new FilmGenereDto(
-				new FilmDto(
-						film.getId(),
-						film.getNome(), 
-						genere.getId(), genere.getNome(), 
-						film.getAnno(), 
-						film.getDurata(),
-						film.getCast(),
-						film.getDescrizione(),
-        				film.getFileName())
-		);
+		Genere genere = daoGenere.getGenereById(film.getIdGenere().getId());
+
+		return FacadeUtils.trasformFilmIntoDto(film, genere);
 	}
 
 	@Override
 	public List<Genere> getAllGeneri() {
-		DaoFactory daoFactory = DaoFactory.getDao(DaoType.JDBCCONNECTION);
+		DaoFactory daoFactory = DaoFactory.getDao(DaoType.JPA);
 		DaoGenere daoGenere = daoFactory.getDaoGenere();
 		return daoGenere.getAllGeneri();
 	}

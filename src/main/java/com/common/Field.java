@@ -13,6 +13,7 @@ public class Field {
 	public static final 
 		String PATH = "C:\\Users\\user\\Desktop\\Desktop\\Java EE\\apache-tomcat-8.0.47\\webapps\\OnDemandImage";
     public static final String ALL_GENERI = "all_generi";
+    public static final String JPA_CONN = "VideoOnDemand_JPA";
 
     public static class DB {
 		public static final String 

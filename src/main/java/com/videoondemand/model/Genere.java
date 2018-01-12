@@ -1,17 +1,28 @@
-package com.jpa;
+package com.videoondemand.model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "genere", schema = "videoondemand", catalog = "")
-public class GenereEntity {
+@Table(name = "genere", schema = "videoondemand")
+@NamedQuery(name = "GenereEntity.findAll", query = "SELECT g FROM Genere g")
+public class Genere {
     private int id;
     private String nome;
     private String descrizione;
     private Timestamp dataCreazione;
     private Timestamp ultimaModifica;
+    private Film genere;
+
+    public Genere() {
+    }
+
+    public Genere(int id, String nome, String descrizione) {
+        this.id = id;
+        this.nome = nome;
+        this.descrizione = descrizione;
+    }
 
     @Id
     @Column(name = "id")
@@ -67,7 +78,7 @@ public class GenereEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        GenereEntity that = (GenereEntity) o;
+        Genere that = (Genere) o;
         return id == that.id &&
                 Objects.equals(nome, that.nome) &&
                 Objects.equals(descrizione, that.descrizione) &&
@@ -79,5 +90,14 @@ public class GenereEntity {
     public int hashCode() {
 
         return Objects.hash(id, nome, descrizione, dataCreazione, ultimaModifica);
+    }
+
+    @OneToOne(mappedBy = "idGenere")
+    public Film getGenere() {
+        return genere;
+    }
+
+    public void setGenere(Film genere) {
+        this.genere = genere;
     }
 }

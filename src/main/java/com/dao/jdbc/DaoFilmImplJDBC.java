@@ -35,13 +35,13 @@ public class DaoFilmImplJDBC implements DaoFilm {
         return new Query().getResultFromStatement(INSERT_INTO_FILM,
                 st -> {
                     try {
-                        st.setString(1,toAdd.getNome());
+                        st.setString(1,toAdd.getTitolo());
                         st.setInt(2, toAdd.getAnno());
-                        st.setInt(3, toAdd.getIdGenere());
+                        st.setInt(3, toAdd.getIdGenereFk());
                         st.setString(4, toAdd.getCast());
                         st.setInt(5, toAdd.getDurata());
                         st.setString(6, toAdd.getDescrizione());
-                        st.setString(7, toAdd.getFileName());
+                        st.setString(7, toAdd.getFilename());
                         return st.executeUpdate() > 0;
                     } catch (SQLException e) {
                         e.printStackTrace();
@@ -56,9 +56,9 @@ public class DaoFilmImplJDBC implements DaoFilm {
         return new Query().getResultFromStatement(MODIFY_FILM,
                 st -> {
                     try {
-                        st.setString(1, toModify.getNome());
+                        st.setString(1, toModify.getTitolo());
                         st.setInt(2, toModify.getAnno());
-                        st.setInt(3, toModify.getIdGenere());
+                        st.setInt(3, toModify.getIdGenereFk());
                         st.setString(4, toModify.getCast());
                         st.setInt(5, toModify.getDurata());
                         st.setString(6, Validate.checkIfIsNullOrEmpty(toModify.getDescrizione()));

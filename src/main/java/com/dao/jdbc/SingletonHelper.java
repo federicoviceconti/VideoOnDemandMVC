@@ -3,7 +3,7 @@ package com.dao.jdbc;
 public class SingletonHelper {
 	private static final Object obj = new Object();
 	
-	public <T> T getInstance(T instance, Class<T> classType) {
+	public static <T> T getInstance(T instance, Class<T> classType) {
 		if(instance == null) {
 			synchronized (obj) {
 				if(instance == null) {

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import com.common.Field;
 import com.dao.DaoUtente;
 import com.videoondemand.model.User;
+import com.videoondemand.model.UserOld;
 
 
 public class DaoUtenteImplJDBC implements DaoUtente {
@@ -46,10 +47,10 @@ public class DaoUtenteImplJDBC implements DaoUtente {
 		}, (resultSet) -> {
 			try {
 				if(resultSet != null && resultSet.next()) {
-					return new User.UserBuilder()
+					/*return new UserOld.UserBuilder()
 							.setUsername(resultSet.getString(Field.DB.USERNAME))
 							.setPassword(resultSet.getString(Field.DB.PASSWORD).toCharArray())
-							.build();
+							.build();*/
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
